@@ -4,3 +4,8 @@
 export interface IListViewProps {
   props?: any;
 }
+
+export interface ITaskState {
+  id: string;
+  label: string;
+}
