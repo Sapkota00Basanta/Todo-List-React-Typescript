@@ -1,5 +1,6 @@
 // Import Third-Party Modules
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Focus } from './components/Focus/Focus';
 
@@ -14,6 +15,27 @@ import { IAppProps } from './types/App.types';
 export const App: React.FC<IAppProps> = () => {
   return (
     <BrowserRouter>
+      <nav>
+        <NavLink
+          to="/"
+          style={({ isActive }) => ({
+            fontWeight: isActive ? 'bold' : 'normal',
+          })}
+          end
+        >
+          List
+        </NavLink>{' '}
+        -{' '}
+        <NavLink
+          to="/focus"
+          style={({ isActive }) => ({
+            fontWeight: isActive ? 'bold' : 'normal',
+          })}
+        >
+          Focus
+        </NavLink>
+      </nav>
+      <br />
       <Routes>
         <Route path="/" element={<Listview />} />
         <Route path="/focus" element={<Focus />} />

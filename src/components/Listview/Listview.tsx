@@ -27,7 +27,7 @@ export const Listview: React.FC<IListViewProps> = () => {
    * This method handles the key press change to update the tasks state
    * @param event KeyboardEvent of Input Type
    */
-  const handleNewTaskLableKeyDown = (
+  const handleNewTaskLabelKeyDown = (
     event: KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key.toLowerCase() === 'enter' && newTaskLabel !== '') {
@@ -39,6 +39,11 @@ export const Listview: React.FC<IListViewProps> = () => {
     }
   };
 
+  /**
+   * This method is a higher order functoin, which handles the marking a specific task as complete or incomplte
+   * @param selectedTask Todo list task
+   * @returns ChnageEventHandler
+   */
   const handleTaskCompleteChange =
     (selectedTask: ITaskState) => (event: ChangeEvent<HTMLInputElement>) => {
       setTasks((tasks) =>
@@ -54,6 +59,22 @@ export const Listview: React.FC<IListViewProps> = () => {
       );
     };
 
+  /**
+   * This method handles clearing of all the completed tasks
+   */
+  const handleTasksCompleteClearClick = () => {
+    setTasks((tasks) => tasks.filter((task) => !task.isComplete));
+  };
+
+  /**
+   * This method is a higher order function which handles to delete selected task from tasks array
+   * @param selectedTask Selected task to delete
+   * @returns Event Handler which filters out task with matching id
+   */
+  const handleTaskDeleteClick = (selectedTask: ITaskState) => () => {
+    setTasks((tasks) => tasks.filter((task) => task.id !== selectedTask.id));
+  };
+
   return (
     <div>
       <div>
@@ -65,14 +86,20 @@ export const Listview: React.FC<IListViewProps> = () => {
               onChange={handleTaskCompleteChange(eachTask)}
             />{' '}
             {eachTask.label}
+            <button onClick={handleTaskDeleteClick(eachTask)}>Delete</button>
           </div>
         ))}
       </div>
       <input
         value={newTaskLabel}
         onChange={handleNewTaskLabelChange}
-        onKeyDown={handleNewTaskLableKeyDown}
+        onKeyDown={handleNewTaskLabelKeyDown}
       />
+      <div>
+        <button onClick={handleTasksCompleteClearClick}>
+          Clear Complete Task
+        </button>
+      </div>
     </div>
   );
 };
