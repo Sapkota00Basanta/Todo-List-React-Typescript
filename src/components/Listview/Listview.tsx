@@ -31,18 +31,43 @@ export const Listview: React.FC<IListViewProps> = () => {
     event: KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key.toLowerCase() === 'enter' && newTaskLabel !== '') {
-      setTasks((task) => [...task, { id: nanoid(), label: newTaskLabel }]);
+      setTasks((task) => [
+        ...task,
+        { id: nanoid(), label: newTaskLabel, isComplete: false },
+      ]);
       setNewTaskLabel('');
     }
   };
 
+  const handleTaskCompleteChange =
+    (selectedTask: ITaskState) => (event: ChangeEvent<HTMLInputElement>) => {
+      setTasks((tasks) =>
+        tasks.map((task) => {
+          if (task.id === selectedTask.id) {
+            return {
+              ...task,
+              isComplete: event.target.checked,
+            };
+          }
+          return task;
+        })
+      );
+    };
+
   return (
     <div>
-      <ul>
+      <div>
         {tasks.map((eachTask) => (
-          <li key={eachTask.id}>{eachTask.label}</li>
+          <div key={eachTask.id}>
+            <input
+              type="checkbox"
+              checked={eachTask.isComplete}
+              onChange={handleTaskCompleteChange(eachTask)}
+            />{' '}
+            {eachTask.label}
+          </div>
         ))}
-      </ul>
+      </div>
       <input
         value={newTaskLabel}
         onChange={handleNewTaskLabelChange}
