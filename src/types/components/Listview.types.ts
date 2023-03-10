@@ -2,7 +2,8 @@
  * This module consists of all the type decleration for Listview Component
  */
 export interface IListViewProps {
-  props?: any;
+  tasks: Array<ITaskState>;
+  setTasks: React.Dispatch<React.SetStateAction<Array<ITaskState>>>;
 }
 
 export interface ITaskState {
