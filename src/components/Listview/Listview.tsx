@@ -1,16 +1,18 @@
 // Import Third-Party Modules
-import React, { useState, ChangeEvent, KeyboardEvent } from 'react';
-import { nanoid } from 'nanoid';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 
 // Import User-Defined Modules
-import { IListViewProps } from '../../types/components/Listview.types';
-import { ITaskState } from '../../types/components/Listview.types';
+import {
+  IListViewProps,
+  ITaskState,
+} from '../../types/components/Listview.types';
 
 /**
  * This module is an UI Component for viewing all todo list task and field to add one
  * @returns Listview Component
  */
 export const Listview: React.FC<IListViewProps> = ({
+  addTask,
   tasks,
   setTasks,
   updateTaskCompletion,
@@ -34,10 +36,7 @@ export const Listview: React.FC<IListViewProps> = ({
     event: KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key.toLowerCase() === 'enter' && newTaskLabel !== '') {
-      setTasks((task) => [
-        ...task,
-        { id: nanoid(), label: newTaskLabel, isComplete: false },
-      ]);
+      addTask({ label: newTaskLabel });
       setNewTaskLabel('');
     }
   };
