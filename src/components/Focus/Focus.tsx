@@ -8,6 +8,30 @@ import { IFocusProps } from '../../types/components/Focus.types';
  * This module consist of focus view displaying single focused todo list
  * @returns Focus View Component
  */
-export const Focus: React.FC<IFocusProps> = ({ tasks }) => {
-  return tasks[0] ? <>{tasks[0].label}</> : <>No tasks found.</>;
+export const Focus: React.FC<IFocusProps> = ({
+  tasks,
+  updateTaskCompletion,
+}) => {
+  /**
+   * Only listing the tasks which are incomplete
+   */
+  const task = tasks.filter((task) => !task.isComplete)[0];
+
+  /**
+   * This method handles the marking of any incomplete task as complete.
+   */
+  const handleMarkComplete = () => {
+    updateTaskCompletion(task.id, true);
+  };
+
+  return task ? (
+    <div>
+      {task.label}
+      <div>
+        <button onClick={handleMarkComplete}>Mark as Complete</button>
+      </div>
+    </div>
+  ) : (
+    <div>No incomplete tasks. yay!</div>
+  );
 };

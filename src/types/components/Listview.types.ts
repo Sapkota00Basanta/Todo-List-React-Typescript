@@ -4,6 +4,7 @@
 export interface IListViewProps {
   tasks: Array<ITaskState>;
   setTasks: React.Dispatch<React.SetStateAction<Array<ITaskState>>>;
+  updateTaskCompletion: (taskId: string, isComplete: boolean) => void;
 }
 
 export interface ITaskState {
