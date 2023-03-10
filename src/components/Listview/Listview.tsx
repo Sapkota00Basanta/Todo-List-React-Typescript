@@ -10,7 +10,11 @@ import { ITaskState } from '../../types/components/Listview.types';
  * This module is an UI Component for viewing all todo list task and field to add one
  * @returns Listview Component
  */
-export const Listview: React.FC<IListViewProps> = ({ tasks, setTasks }) => {
+export const Listview: React.FC<IListViewProps> = ({
+  tasks,
+  setTasks,
+  updateTaskCompletion,
+}) => {
   const [newTaskLabel, setNewTaskLabel] = useState<string>('');
 
   /**
@@ -45,17 +49,7 @@ export const Listview: React.FC<IListViewProps> = ({ tasks, setTasks }) => {
    */
   const handleTaskCompleteChange =
     (selectedTask: ITaskState) => (event: ChangeEvent<HTMLInputElement>) => {
-      setTasks((tasks) =>
-        tasks.map((task) => {
-          if (task.id === selectedTask.id) {
-            return {
-              ...task,
-              isComplete: event.target.checked,
-            };
-          }
-          return task;
-        })
-      );
+      updateTaskCompletion(selectedTask.id, event.target.checked);
     };
 
   /**
