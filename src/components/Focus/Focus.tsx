@@ -9,19 +9,15 @@ import { IFocusProps } from '../../types/components/Focus.types';
  * @returns Focus View Component
  */
 export const Focus: React.FC<IFocusProps> = ({
-  tasks,
+  focusedTask: task,
+  shuffleFocusedTask,
   updateTaskCompletion,
 }) => {
-  /**
-   * Only listing the tasks which are incomplete
-   */
-  const task = tasks.filter((task) => !task.isComplete)[0];
-
   /**
    * This method handles the marking of any incomplete task as complete.
    */
   const handleMarkComplete = () => {
-    updateTaskCompletion(task.id, true);
+    task && updateTaskCompletion(task.id, true);
   };
 
   return task ? (
@@ -30,6 +26,7 @@ export const Focus: React.FC<IFocusProps> = ({
       <div>
         <button onClick={handleMarkComplete}>Mark as Complete</button>
       </div>
+      <button onClick={shuffleFocusedTask}> Nope! </button>
     </div>
   ) : (
     <div>No incomplete tasks. yay!</div>
