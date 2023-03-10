@@ -7,4 +7,5 @@ import { ITaskState } from './Listview.types';
 export interface IFocusProps {
   tasks: Array<ITaskState>;
   setTasks: React.Dispatch<React.SetStateAction<Array<ITaskState>>>;
+  updateTaskCompletion: (taskId: string, isComplete: boolean) => void;
 }

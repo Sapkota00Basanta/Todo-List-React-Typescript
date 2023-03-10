@@ -15,7 +15,25 @@ import { ITaskState } from './types/components/Listview.types';
  */
 export const App: React.FC<IAppProps> = () => {
   const [tasks, setTasks] = useState<Array<ITaskState>>([]);
-  const tasksPropsObject = { tasks, setTasks };
+
+  /**
+   * This method handles the event listener state data management of child component for marking a task as complete
+   * @param taskId Unique task id
+   * @param isComplete Boolena complete value
+   */
+  const updateTaskCompletion = (taskId: string, isComplete: boolean) => {
+    setTasks((tasks) =>
+      tasks.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, isComplete };
+        }
+        return task;
+      })
+    );
+  };
+
+  const tasksPropsObject = { tasks, setTasks, updateTaskCompletion };
+
   return (
     <BrowserRouter>
       <nav>
