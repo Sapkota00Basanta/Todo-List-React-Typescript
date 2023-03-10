@@ -1,5 +1,5 @@
 // Import Third-Party Modules
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Focus } from './components/Focus/Focus';
@@ -7,12 +7,15 @@ import { Focus } from './components/Focus/Focus';
 // Import User-Defined Modules
 import { Listview } from './components/Listview/Listview';
 import { IAppProps } from './types/App.types';
+import { ITaskState } from './types/components/Listview.types';
 
 /**
  * This module is main app component where we assign all the navigation routes to component
  * @returns App Component
  */
 export const App: React.FC<IAppProps> = () => {
+  const [tasks, setTasks] = useState<Array<ITaskState>>([]);
+  const tasksPropsObject = { tasks, setTasks };
   return (
     <BrowserRouter>
       <nav>
@@ -37,8 +40,8 @@ export const App: React.FC<IAppProps> = () => {
       </nav>
       <br />
       <Routes>
-        <Route path="/" element={<Listview />} />
-        <Route path="/focus" element={<Focus />} />
+        <Route path="/" element={<Listview {...tasksPropsObject} />} />
+        <Route path="/focus" element={<Focus {...tasksPropsObject} />} />
       </Routes>
     </BrowserRouter>
   );
