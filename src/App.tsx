@@ -9,13 +9,14 @@ import { Focus } from './components/Focus/Focus';
 import { Listview } from './components/Listview/Listview';
 import { IAppProps } from './types/App.types';
 import { ITaskState } from './types/components/Listview.types';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 /**
  * This module is main app component where we assign all the navigation routes to component
  * @returns App Component
  */
 export const App: React.FC<IAppProps> = () => {
-  const [tasks, setTasks] = useState<Array<ITaskState>>([]);
+  const [tasks, setTasks] = useLocalStorage<Array<ITaskState>>('tasks', []);
   const [focusedTaskId, setFocusedTaskId] = useState<string | undefined>(
     undefined
   );
