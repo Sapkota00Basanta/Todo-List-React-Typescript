@@ -1,7 +1,7 @@
 // Import Third-Party Modules
 import { shuffle } from 'lodash';
 import { nanoid } from 'nanoid';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 // Import User-Defined Modules
 import { TaskContext } from '../contexts/taskStore';
@@ -14,8 +14,16 @@ import { IUseTaskStoreHookReturnTypes } from '../types/hooks/useTaskStore.types'
  */
 export const useTaskStore = (): IUseTaskStoreHookReturnTypes => {
   const [tasks, setTasks] = useContext(TaskContext);
+
+  /**
+   * Here, we select focused task id only if there are incomplete tasks stored
+   * in local storage & if not then set it to undefined.
+   */
+  const selectIncompleteTaskId = (): string => {
+    return tasks.filter((task) => !task.isComplete)[0]?.id;
+  };
   const [focusedTaskId, setFocusedTaskId] = useState<string | undefined>(
-    undefined
+    selectIncompleteTaskId()
   );
 
   /**
@@ -53,6 +61,14 @@ export const useTaskStore = (): IUseTaskStoreHookReturnTypes => {
    * This selects among the list of tasks which are incomplete randomly
    */
   const focusedTask = tasks.filter((task) => task.id === focusedTaskId)[0];
+
+  /**
+   * This useEffect hooks checks if the current focused task is complete
+   * & if it is then update the focused Task Id State
+   */
+  useEffect(() => {
+    if (focusedTask?.isComplete) setFocusedTaskId(selectIncompleteTaskId());
+  }, [tasks, focusedTask]);
 
   /**
    * This method handles shuffling among the incomplete set of tasks & select one and return it's id
