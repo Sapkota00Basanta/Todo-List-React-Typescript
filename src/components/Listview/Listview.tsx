@@ -2,6 +2,7 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 
 // Import User-Defined Modules
+import { useTaskStore } from '../../hooks/useTaskStore';
 import {
   IListViewProps,
   ITaskState,
@@ -11,12 +12,8 @@ import {
  * This module is an UI Component for viewing all todo list task and field to add one
  * @returns Listview Component
  */
-export const Listview: React.FC<IListViewProps> = ({
-  addTask,
-  tasks,
-  setTasks,
-  updateTaskCompletion,
-}) => {
+export const Listview: React.FC<IListViewProps> = () => {
+  const { addTask, tasks, setTasks, updateTaskCompletion } = useTaskStore();
   const [newTaskLabel, setNewTaskLabel] = useState<string>('');
 
   /**

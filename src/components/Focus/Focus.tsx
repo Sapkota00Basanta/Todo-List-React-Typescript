@@ -1,5 +1,6 @@
 // Import Third-Party Modules
 import React from 'react';
+import { useTaskStore } from '../../hooks/useTaskStore';
 
 // Import User-Defined Modules
 import { IFocusProps } from '../../types/components/Focus.types';
@@ -8,11 +9,13 @@ import { IFocusProps } from '../../types/components/Focus.types';
  * This module consist of focus view displaying single focused todo list
  * @returns Focus View Component
  */
-export const Focus: React.FC<IFocusProps> = ({
-  focusedTask: task,
-  shuffleFocusedTask,
-  updateTaskCompletion,
-}) => {
+export const Focus: React.FC<IFocusProps> = () => {
+  const {
+    focusedTask: task,
+    shuffleFocusedTask,
+    updateTaskCompletion,
+  } = useTaskStore();
+
   /**
    * This method handles the marking of any incomplete task as complete.
    */
