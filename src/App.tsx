@@ -4,31 +4,31 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 
 // Import User-Defined Modules
-import { Focus } from './components/Focus/Focus';
-import { Listview } from './components/Listview/Listview';
+import { Focus } from './screens/Focus/Focus';
+import { Listview } from './screens/Listview/Listview';
 import { TaskContext } from './contexts/taskStore';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { globalColorsObject, GlobalStyles } from './styles';
 import { IAppProps } from './types/App.types';
-import { ITaskState } from './types/components/Listview.types';
+import { ITaskState } from './types/screens/Listview.types';
 
 // Styled Components Definations
-const LayoutContainerTag = styled.div`
+const AppLayoutContainerTag = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 35px;
+  padding: 2.1875rem;
 `;
 
 const HTMLNavTag = styled.nav`
   display: flex;
-  margin-bottom: 45px;
+  margin-bottom: 2.8125rem;
 `;
 
 const RouterNavLinkTag = styled(NavLink)`
-  height: 62px;
-  width: 120px;
+  height: 3.875rem;
+  width: 7.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,24 +37,24 @@ const RouterNavLinkTag = styled(NavLink)`
   text-decoration: none;
 
   &:first-child {
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
+    border-top-left-radius: 0.9375rem;
+    border-bottom-left-radius: 0.9375rem;
   }
 
   &:last-child {
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-top-right-radius: 0.9375rem;
+    border-bottom-right-radius: 0.9375rem;
   }
 
   /* We can add styles to nested element based on className */
   &.active {
-    background-color: ${globalColorsObject.primaryColor};
+    background: ${globalColorsObject.primaryColor};
     color: #000;
   }
 `;
 
 /**
- * This module is main app component where we assign all the navigation routes to component
+ * This module is main app component where we assign all the navigation routes to screen component
  * @returns App Component
  */
 export const App: React.FC<IAppProps> = () => {
@@ -65,7 +65,7 @@ export const App: React.FC<IAppProps> = () => {
       <GlobalStyles />
       <BrowserRouter>
         <TaskContext.Provider value={[tasks, setTasks]}>
-          <LayoutContainerTag>
+          <AppLayoutContainerTag>
             <HTMLNavTag>
               {/* By default active class is added to Navlink in react router version 6 */}
               <RouterNavLinkTag to="/" end>
@@ -77,7 +77,7 @@ export const App: React.FC<IAppProps> = () => {
               <Route path="/" element={<Listview />} />
               <Route path="/focus" element={<Focus />} />
             </Routes>
-          </LayoutContainerTag>
+          </AppLayoutContainerTag>
         </TaskContext.Provider>
       </BrowserRouter>
     </>

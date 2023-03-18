@@ -1,16 +1,27 @@
 // Import Third-Party Modules
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import styled from 'styled-components';
 
 // Import User-Defined Modules
+import { TextButton } from '../../components/TextButton';
 import { useTaskStore } from '../../hooks/useTaskStore';
-import {
-  IListViewProps,
-  ITaskState,
-} from '../../types/components/Listview.types';
+import { IListViewProps, ITaskState } from '../../types/screens/Listview.types';
+
+// Styled Components Definations
+const ListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+`;
+
+const TodoListConatiner = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.9375rem;
+`;
 
 /**
- * This module is an UI Component for viewing all todo list task and field to add one
- * @returns Listview Component
+ * This module is an UI Screen Component for viewing all todo list task and field to add one
+ * @returns Listview Screen Component
  */
 export const Listview: React.FC<IListViewProps> = () => {
   const { addTask, tasks, setTasks, updateTaskCompletion } = useTaskStore();
@@ -65,8 +76,8 @@ export const Listview: React.FC<IListViewProps> = () => {
   };
 
   return (
-    <div>
-      <div>
+    <ListContainer>
+      <TodoListConatiner>
         {tasks.map((eachTask) => (
           <div key={eachTask.id}>
             <input
@@ -78,17 +89,15 @@ export const Listview: React.FC<IListViewProps> = () => {
             <button onClick={handleTaskDeleteClick(eachTask)}>Delete</button>
           </div>
         ))}
-      </div>
+      </TodoListConatiner>
       <input
         value={newTaskLabel}
         onChange={handleNewTaskLabelChange}
         onKeyDown={handleNewTaskLabelKeyDown}
       />
-      <div>
-        <button onClick={handleTasksCompleteClearClick}>
-          Clear Complete Task
-        </button>
-      </div>
-    </div>
+      <TextButton onClick={handleTasksCompleteClearClick}>
+        Clear Complete Task
+      </TextButton>
+    </ListContainer>
   );
 };
