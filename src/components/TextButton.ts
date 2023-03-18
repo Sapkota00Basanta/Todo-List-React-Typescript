@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 /**
- * This component simply exports styled component text button component
+ * This component simply exports styled text button component
  */
 export const TextButton = styled.button`
   border: none;

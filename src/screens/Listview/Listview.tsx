@@ -1,9 +1,11 @@
 // Import Third-Party Modules
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import styled from 'styled-components';
+import { Spacer } from '../../components/Spacer';
 
 // Import User-Defined Modules
 import { TextButton } from '../../components/TextButton';
+import { TextInput } from '../../components/TextInput';
 import { useTaskStore } from '../../hooks/useTaskStore';
 import { IListViewProps, ITaskState } from '../../types/screens/Listview.types';
 
@@ -12,6 +14,7 @@ const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  width: 28.75rem;
 `;
 
 const TodoListConatiner = styled.div`
@@ -90,11 +93,13 @@ export const Listview: React.FC<IListViewProps> = () => {
           </div>
         ))}
       </TodoListConatiner>
-      <input
+      <Spacer height={1.875} />
+      <TextInput
         value={newTaskLabel}
         onChange={handleNewTaskLabelChange}
         onKeyDown={handleNewTaskLabelKeyDown}
       />
+      <Spacer height={2.8125} />
       <TextButton onClick={handleTasksCompleteClearClick}>
         Clear Complete Task
       </TextButton>
