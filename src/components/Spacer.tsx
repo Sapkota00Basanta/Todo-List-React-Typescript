@@ -10,6 +10,6 @@ import { ISpacerProps } from '../types/components/Spacer.types';
  * Without having to use margin for adding space.
  * @returns Spacer Div Component
  */
-export const Spacer: React.FC<ISpacerProps> = ({ height, width }) => {
-  return <div style={{ height: `${height}rem`, width: `${width}rem` }} />;
+export const Spacer: React.FC<ISpacerProps> = ({ height, width, flex }) => {
+  return <div style={{ height: `${height}rem`, width: `${width}rem`, flex }} />;
 };
