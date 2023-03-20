@@ -19,6 +19,7 @@ const AppLayoutContainerTag = styled.div`
   justify-content: center;
   align-items: center;
   padding: 2.1875rem;
+  min-height: 100vh;
 `;
 
 const HTMLNavTag = styled.nav`

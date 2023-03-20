@@ -10,6 +10,10 @@ export const globalColorsObject = {
 };
 
 export const GlobalStyles = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+
     body {
         background: #222;
         color: #fff;
