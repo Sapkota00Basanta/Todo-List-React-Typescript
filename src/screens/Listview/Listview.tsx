@@ -1,14 +1,15 @@
 // Import Third-Party Modules
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import styled from 'styled-components';
-import { IconButton } from '../../components/IconButton';
-import { Spacer } from '../../components/Spacer';
 
 // Import User-Defined Modules
+import { IconButton } from '../../components/IconButton';
+import { Spacer } from '../../components/Spacer';
 import { TextButton } from '../../components/TextButton';
 import { TextInput } from '../../components/TextInput';
 import { useTaskStore } from '../../hooks/useTaskStore';
 import { DeleteIcon } from '../../icons/DeleteIcon';
+import { Checkbox } from '../../components/Checkbox';
 import { IListViewProps, ITaskState } from '../../types/screens/Listview.types';
 
 // Styled Components Definations
@@ -106,7 +107,7 @@ export const Listview: React.FC<IListViewProps> = () => {
         {tasks.map((eachTask) => {
           return (
             <TodoListItem key={eachTask.id}>
-              <input
+              <Checkbox
                 type="checkbox"
                 checked={eachTask.isComplete}
                 onChange={handleTaskCompleteChange(eachTask)}
