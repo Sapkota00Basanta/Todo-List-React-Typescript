@@ -1,5 +1,5 @@
 /**
- * This module consists of all the type decleration for Listview Component
+ * This module consists of all the type decleration for Listview screen
  */
 export interface IListViewProps {}
 

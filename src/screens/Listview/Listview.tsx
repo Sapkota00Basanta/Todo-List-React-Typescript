@@ -1,16 +1,53 @@
 // Import Third-Party Modules
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import styled from 'styled-components';
 
 // Import User-Defined Modules
+import { IconButton } from '../../components/IconButton';
+import { Spacer } from '../../components/Spacer';
+import { TextButton } from '../../components/TextButton';
+import { TextInput } from '../../components/TextInput';
 import { useTaskStore } from '../../hooks/useTaskStore';
-import {
-  IListViewProps,
-  ITaskState,
-} from '../../types/components/Listview.types';
+import { DeleteIcon } from '../../icons/DeleteIcon';
+import { Checkbox } from '../../components/Checkbox';
+import { IListViewProps, ITaskState } from '../../types/screens/Listview.types';
+
+// Styled Components Definations
+const ListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 28.75rem;
+`;
+
+const TodoListConatiner = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.9375rem;
+  padding: 2.8125rem 1.5625rem;
+  display: flex;
+  flex-direction: column;
+`;
+
+const TodoListItem = styled.label`
+  display: flex;
+  padding: 0.25rem 0;
+  align-items: center;
+  font-size: 1.125rem;
+`;
 
 /**
- * This module is an UI Component for viewing all todo list task and field to add one
- * @returns Listview Component
+ * Here, we can style our component based on other component pseudo properties
+ */
+const DeleteButton = styled(IconButton)`
+  visibility: hidden;
+  ${TodoListItem}:hover & {
+    visibility: visible;
+  }
+`;
+
+/**
+ * This module is an UI Screen Component for viewing all todo list task and field to add one
+ * @returns Listview Screen Component
  */
 export const Listview: React.FC<IListViewProps> = () => {
   const { addTask, tasks, setTasks, updateTaskCompletion } = useTaskStore();
@@ -65,30 +102,37 @@ export const Listview: React.FC<IListViewProps> = () => {
   };
 
   return (
-    <div>
-      <div>
-        {tasks.map((eachTask) => (
-          <div key={eachTask.id}>
-            <input
-              type="checkbox"
-              checked={eachTask.isComplete}
-              onChange={handleTaskCompleteChange(eachTask)}
-            />{' '}
-            {eachTask.label}
-            <button onClick={handleTaskDeleteClick(eachTask)}>Delete</button>
-          </div>
-        ))}
-      </div>
-      <input
+    <ListContainer>
+      <TodoListConatiner>
+        {tasks.map((eachTask) => {
+          return (
+            <TodoListItem key={eachTask.id}>
+              <Checkbox
+                type="checkbox"
+                checked={eachTask.isComplete}
+                onChange={handleTaskCompleteChange(eachTask)}
+              />
+              <Spacer width={1.4} />
+              {eachTask.label}
+              <Spacer flex={1} />
+              <DeleteButton onClick={handleTaskDeleteClick(eachTask)}>
+                <DeleteIcon />
+              </DeleteButton>
+            </TodoListItem>
+          );
+        })}
+      </TodoListConatiner>
+      <Spacer height={1.875} />
+      <TextInput
+        placeholder="Add a new task"
         value={newTaskLabel}
         onChange={handleNewTaskLabelChange}
         onKeyDown={handleNewTaskLabelKeyDown}
       />
-      <div>
-        <button onClick={handleTasksCompleteClearClick}>
-          Clear Complete Task
-        </button>
-      </div>
-    </div>
+      <Spacer height={2.8125} />
+      <TextButton onClick={handleTasksCompleteClearClick}>
+        Clear Complete Task
+      </TextButton>
+    </ListContainer>
   );
 };

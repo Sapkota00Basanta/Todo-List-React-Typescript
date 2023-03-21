@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 
 // Import User-Defined Modules
 import { TaskContext } from '../contexts/taskStore';
-import { ITaskState } from '../types/components/Listview.types';
+import { ITaskState } from '../types/screens/Listview.types';
 import { IUseTaskStoreHookReturnTypes } from '../types/hooks/useTaskStore.types';
 
 /**
@@ -42,7 +42,7 @@ export const useTaskStore = (): IUseTaskStoreHookReturnTypes => {
 
   /**
    * This method handles the event listener
-   * state data management of child component for marking a task as complete
+   * state data management of child screen component for marking a task as complete
    * @param taskId Unique task id
    * @param isComplete Boolena complete value
    */

@@ -1,5 +1,5 @@
 // Import User-Defined Modules
-import { ITaskState } from '../components/Listview.types';
+import { ITaskState } from '../screens/Listview.types';
 
 /**
  * This module consists of all the type decleration
